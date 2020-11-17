@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Models\Task;
 
+use App\Models\Task;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,9 +30,11 @@ Route::group(['middleware'=>'web'],function (){
  * 增加新任務
  */
     Route::post('/task',function(Request $request){
-        $validator=Validator::make($request->all(),[
-            'name'=>'required|max:255',
-        ]);
+      $validator=Validator::make($request->all(),[
+          'name'=>'required|max:255',
+      ]);
+
+
         if ($validator->fails()) {
             return redirect('/')
                 ->withInput()
@@ -51,6 +53,8 @@ Route::group(['middleware'=>'web'],function (){
      * 刪除任務
      */
     Route::delete('/task/{task}',function (Task $task){
+        $task->delete();
 
+        return redirect('/');
     });
 });
