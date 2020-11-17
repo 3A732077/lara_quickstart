@@ -1,22 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="col-sm-offset-2 col-sm-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    New Task
-                </div>
 
                 <div class="panel-body">
-                    <!-- Display Validation Errors -->
+                    <!-- 顯示驗證錯誤 -->
                 @include('common.errors')
 
                 <!-- New Task Form -->
                     <form action="{{ url('task')}}" method="POST" class="form-horizontal">
                     {{ csrf_field() }}
 
-                    <!-- Task Name -->
+                    <!-- 任務 Name -->
                         <div class="form-group">
                             <label for="task-name" class="col-sm-3 control-label">Task</label>
 
@@ -25,11 +19,11 @@
                             </div>
                         </div>
 
-                        <!-- Add Task Button -->
+                        <!-- 增加任務按鈕 -->
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-btn fa-plus"></i>Add Task
+                                    <i class="fa fa-btn fa-plus"></i>增加任務
                                 </button>
                             </div>
                         </div>
@@ -37,32 +31,39 @@
                 </div>
             </div>
 
-            <!-- Current Tasks -->
+            <!-- 目前任務 Tasks -->
             @if (count($tasks) > 0)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Current Tasks
+                        目前任務
                     </div>
 
                     <div class="panel-body">
                         <table class="table table-striped task-table">
+
+                            <!--表頭-->
                             <thead>
                             <th>Task</th>
                             <th>&nbsp;</th>
                             </thead>
+
+                            <!--表身-->
                             <tbody>
                             @foreach ($tasks as $task)
                                 <tr>
-                                    <td class="table-text"><div>{{ $task->name }}</div></td>
+                                    <!--任務名稱-->
+                                    <td class="table-text">
+                                        <div>{{ $task->name }}</div>
+                                    </td>
 
-                                    <!-- Task Delete Button -->
+                                    <!-- 刪除按鈕 -->
                                     <td>
                                         <form action="{{ url('task/'.$task->id) }}" method="POST">
                                             {{ csrf_field() }}
                                             {{ method_field('DELETE') }}
 
                                             <button type="submit" class="btn btn-danger">
-                                                <i class="fa fa-btn fa-trash"></i>Delete
+                                                <i class="fa fa-btn fa-trash"></i>刪除任務
                                             </button>
                                         </form>
                                     </td>
